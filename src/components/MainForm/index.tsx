@@ -61,6 +61,7 @@ export function MainForm() {
           type="text"
           placeholder="digite algo"
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
 
@@ -68,9 +69,11 @@ export function MainForm() {
         <p>the next interval is: </p>
       </div>
 
-      <div className="formRow">
-        <Cycles />
-      </div>
+      {state.currentCycle > 0 && (
+        <div className="formRow">
+          <Cycles />
+        </div>
+      )}
 
       <div className="formRow">
         <DefaultButton icon={<PlayCircleIcon />} color="red" />
