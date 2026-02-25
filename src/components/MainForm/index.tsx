@@ -14,6 +14,7 @@ import { showMessage } from "../../adapters/toastifyWrapper";
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || '';
 
   // cycles
   const nextCycle = getNextCycle(state.currentCycle);
@@ -42,8 +43,6 @@ export function MainForm() {
       type: nextCycleType,
     };
 
-    const secondsRemaining = newTask.duration * 60;
-
     dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
 
     showMessage.success("Task initiated");
@@ -64,6 +63,7 @@ export function MainForm() {
           placeholder="digite algo"
           ref={taskNameInput}
           disabled={!!state.activeTask}
+          defaultValue={lastTaskName}
         />
       </div>
 

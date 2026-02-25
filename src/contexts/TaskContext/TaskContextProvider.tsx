@@ -41,6 +41,8 @@ export function TaskContextProvider({ children }: taskContextProviderProps) {
       worker.terminate();
     }
 
+    document.title = `${state.formattedSecondsRemaining} - Pomodorus`
+
     worker.postMessage(state);
   }, [worker, state]);
 
