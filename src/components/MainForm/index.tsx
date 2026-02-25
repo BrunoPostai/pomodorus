@@ -9,7 +9,7 @@ import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionsTypes } from "../../contexts/TaskContext/taskActions";
 import { Tips } from "../Tips";
-import { TimerWorkerManager } from "../../workers/timerWorkerManager";
+import { showMessage } from "../../adapters/toastifyWrapper";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -21,13 +21,14 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
+    showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      alert("Write the name of the chore");
+      showMessage.warn("Write the task name!");
       return;
     }
 
@@ -44,10 +45,14 @@ export function MainForm() {
     const secondsRemaining = newTask.duration * 60;
 
     dispatch({ type: TaskActionsTypes.START_TASK, payload: newTask });
+
+    showMessage.success("Task initiated");
   }
 
   function handleInterruptTask() {
     dispatch({ type: TaskActionsTypes.INTERRUPT_TASK });
+    showMessage.dismiss();
+    showMessage.error('Task was interrupted!');
   }
 
   return (

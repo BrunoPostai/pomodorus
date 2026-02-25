@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import styles from "./styles.module.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 type AvailableThemes = "dark" | "light";
 
@@ -18,15 +19,14 @@ export function Menu() {
   });
 
   const nextThemeIcon = {
-    dark: <SunIcon/>,
-    light: <MoonIcon/>
-  }
+    dark: <SunIcon />,
+    light: <MoonIcon />,
+  };
 
   function handleThemeChange(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
   ) {
     event.preventDefault(); // Don't follow the link
-    console.log("Clicado", Date.now());
 
     setTheme((prevTheme) => {
       const nextTheme = prevTheme === "dark" ? "light" : "dark";
@@ -41,34 +41,34 @@ export function Menu() {
 
   return (
     <div className={styles.menu}>
-      <a className={styles.menuLink} href="" aria-label="HOME" title="HOME">
+      <Link className={styles.menuLink} to="/" aria-label="HOME" title="HOME">
         <HouseIcon />
-      </a>
-      <a
+      </Link>
+      <Link
         className={styles.menuLink}
-        href="#"
+        to="/history"
         aria-label="HISTORY"
         title="HISTORY"
       >
         <HistoryIcon />
-      </a>
-      <a
+      </Link>
+      <Link
         className={styles.menuLink}
-        href="#"
+        to="/settings"
         aria-label="SETTINGS"
         title="SETTINGS"
       >
         <SettingsIcon />
-      </a>
-      <a
+      </Link>
+      <Link
         className={styles.menuLink}
-        href="#"
+        to="#"
         aria-label="CHANGE THEME"
         title="CHANGE THEME"
         onClick={handleThemeChange}
       >
         {nextThemeIcon[theme]}
-      </a>
+      </Link>
     </div>
   );
 }
