@@ -20,7 +20,6 @@ export type TaskActionsWithPayload =
 
 export type TaskActionsWithoutPayload =
   | {
-      payload: any;
       type: TaskActionsTypes.RESET_STATE;
     }
   | {
