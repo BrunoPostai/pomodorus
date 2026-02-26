@@ -4,7 +4,7 @@ import { DefaultButton } from "../../components/DefaultButton";
 import { DefaultInput } from "../../components/DefaultInput";
 import { Header } from "../../components/Header";
 import MainTemplate from "../../templates/MainTemplate";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTaskContext } from "../../contexts/TaskContext/UseTaskContext";
 import { showMessage } from "../../adapters/toastifyWrapper";
 import { TaskActionsTypes } from "../../contexts/TaskContext/taskActions";
@@ -14,6 +14,10 @@ export function Settings() {
   const workTimeInput = useRef<HTMLInputElement>(null);
   const shortBreakTimeInput = useRef<HTMLInputElement>(null);
   const longBreakTimeInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    document.title = "Settings - Pomodorus";
+  }, []);
 
   function handleSaveSettings(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -49,7 +53,7 @@ export function Settings() {
       type: TaskActionsTypes.CHANGE_SETTINGS,
       payload: { workTime, shortBreakTime, longBreakTime },
     });
-    showMessage.success('Settings successfully saved')
+    showMessage.success("Settings successfully saved");
   }
 
   return (

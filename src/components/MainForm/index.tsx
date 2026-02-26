@@ -56,6 +56,7 @@ export function MainForm() {
 
   return (
     <form onSubmit={handleCreateNewTask} className="form" action="">
+      <p>Task</p>
       <div className="formRow">
         <DefaultInput
           id="meuInput"
